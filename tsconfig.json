@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": true, //запрет использования переменных без явного указания типа, any всё равно можно использовать
+    "module": "ESNext",
+    "target": "es5", //в какую спецификацию компилируем для поддержки большинства браузеров
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true, //позволяет работать с пакетами которые используют common js (require module.export) как с обычными пакета с помощью import require() module.export
+    "allowSyntheticDefaultImports": true // import * as React from 'react' вместо этого норм
+
+    //"baseUrl": "." //для абсолютного импорта
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
+}

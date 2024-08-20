@@ -1,0 +1,2 @@
+npm i react react-dom
+npm i sass-loader sass webpack style-loader css-loader --save-dev  //чтобы css и scss работал
