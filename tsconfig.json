@@ -8,9 +8,11 @@
     "allowJs": true,
     "moduleResolution": "node",
     "esModuleInterop": true, //позволяет работать с пакетами которые используют common js (require module.export) как с обычными пакета с помощью import require() module.export
-    "allowSyntheticDefaultImports": true // import * as React from 'react' вместо этого норм
-
-    //"baseUrl": "." //для абсолютного импорта
+    "allowSyntheticDefaultImports": true, // import * as React from 'react' вместо этого норм
+    "paths": {
+      "*": ["./src/*"]
+    },
+    "baseUrl": "." //для абсолютного импорта
   },
   "ts-node": {
     "compilerOptions": {
