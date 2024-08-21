@@ -12,11 +12,13 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
       {
         loader: "css-loader",
         options: {
-          modules: true, //модульный css | изоляция стилей
-          auto: (resPath: string) => Boolean(resPath.includes(".module.")),
-          localIdentName: isDev
-            ? "[path][name]__[local]--[hash:base64:5]"
-            : "[hash:base64:8]",
+          modules: {
+            auto: (resPath: string) => Boolean(resPath.includes(".module.")),
+            localIdentName: isDev
+              ? "[path][name]__[local]--[hash:base64:5]"
+              : "[hash:base64:8]",
+            namedExport: false,
+          }, //модульный css | изоляция стилей
         },
       },
       // Compiles Sass to CSS

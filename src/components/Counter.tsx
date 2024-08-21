@@ -3,6 +3,7 @@ import styles from "./cs.module.scss";
 
 export const Counter = () => {
   const [count, setCount] = useState(0);
+  console.log(styles);
 
   return (
     <div>
