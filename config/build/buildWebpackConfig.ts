@@ -11,6 +11,7 @@ export function buildWebpackConfig(
 ): webpack.Configuration {
   //тип для config:webpack.Configuration для автокомплита
   const { paths, mode, isDev } = options;
+
   return {
     mode: mode, //development на этапе разработки
     entry: paths.entry, // entry стартовая точка нашего приложения | __dirname пака где мы сейчас находимся
