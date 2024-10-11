@@ -9,19 +9,19 @@ interface SideBarProps {
 }
 
 export const SideBar = ({ className }: SideBarProps) => {
-  const [collapsed, setCollapsed] = useState(false);
-  const onToggle = () => setCollapsed((prev) => !prev);
-  return (
-    <div
-      className={classNames(cls.sideBar, { [cls.collapsed]: collapsed }, [
-        className,
-      ])}
-    >
-      <button onClick={onToggle}>fdf</button>
-      <div className={cls.switchers}>
-        <ThemeSwitcher />
-        <LangSwitcher className={cls.lang} />
-      </div>
-    </div>
-  );
+    const [collapsed, setCollapsed] = useState(false);
+    const onToggle = () => setCollapsed((prev) => !prev);
+    return (
+        <div
+            className={classNames(cls.sideBar, { [cls.collapsed]: collapsed }, [
+                className,
+            ])}
+        >
+            <button onClick={onToggle}>fdf</button>
+            <div className={cls.switchers}>
+                <ThemeSwitcher />
+                <LangSwitcher className={cls.lang} />
+            </div>
+        </div>
+    );
 };
