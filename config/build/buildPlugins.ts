@@ -1,9 +1,11 @@
-import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
-import HTMLWebpackPlugin from "html-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import path from "path";
-import webpack, { DefinePlugin } from "webpack";
-import { BuildOptions } from "./types/config";
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import HTMLWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import path from 'path';
+import webpack, { DefinePlugin } from 'webpack';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import { BuildOptions } from './types/config';
+
 export function buildPlugins({
     paths,
     isDev,
@@ -20,12 +22,13 @@ export function buildPlugins({
         }),
         new webpack.ProgressPlugin(),
         new MiniCssExtractPlugin({
-            filename: "css/[name].[contenthash:8].css",
-            chunkFilename: "css/[name].[contenthash:8].css",
+            filename: 'css/[name].[contenthash:8].css',
+            chunkFilename: 'css/[name].[contenthash:8].css',
         }),
         new DefinePlugin({
             __IS_DEV__: JSON.stringify(isDev),
-        }), //глобальные переменные доступные в проекте
+        }), // глобальные переменные доступные в проекте
         ...devPlugins,
+        new BundleAnalyzerPlugin({ openAnalyzer: false }),
     ];
 }

@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import {Suspense, useEffect} from "react";
 import { NavBar } from "widgets/NavBar";
 import { SideBar } from "widgets/SideBar";
 import { classNames } from "../shared/lib/classNames/classNames";
@@ -8,9 +8,14 @@ import "./styles/index.scss";
 
 const App = () => {
     const { theme } = useTheme();
+    // useEffect(()=>{
+    //     if(Math.random() < 0.4){
+    //         throw new Error("ss")
+    //     }
+    // },[])
     return (
         <div className={classNames("app", {}, [theme])}>
-            <Suspense fallback="">
+            <Suspense fallback={""}>
                 <NavBar />
 
                 <div className="content-page">
@@ -18,6 +23,8 @@ const App = () => {
                     <AppRouter />
                 </div>
             </Suspense>
+
+
         </div>
     );
 };
