@@ -1,7 +1,9 @@
 import ThemeProvider from './ui/ThemeProvider';
+import { useTheme } from './lib/useTheme';
+import { Theme } from './lib/ThemeContext';
 
-export { Theme } from './lib/ThemeContext';
-export { useTheme } from './lib/useTheme';
-export { ThemeProvider };
-
-// PUBLIC_API
+export {
+    ThemeProvider,
+    useTheme,
+    Theme,
+};
