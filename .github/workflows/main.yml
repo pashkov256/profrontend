@@ -1,15 +1,9 @@
 name: linting, testing, buildingg
 on:
   push:
-<<<<<<< HEAD
     branches: [ main ]
   pull_request:
     branches: [ main ]
-=======
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
->>>>>>> origin/main
 jobs:
   pipeline:
     runs-on: ubuntu-latest
