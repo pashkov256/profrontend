@@ -6,17 +6,13 @@ import webpack, { DefinePlugin } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { BuildOptions } from './types/config';
 
-export function buildPlugins({
-    paths,
-    isDev,
-}: BuildOptions): webpack.WebpackPluginInstance[] {
-    const devPlugins = isDev
-        ? [
-            new webpack.HotModuleReplacementPlugin(),
-            new ReactRefreshWebpackPlugin(),
-        ]
-        : [];
-    return [
+export function buildPlugins({ paths, isDev }: BuildOptions): webpack.WebpackPluginInstance[] {
+    const devPlugins : webpack.WebpackPluginInstance[] = [
+        new webpack.HotModuleReplacementPlugin(),
+        new ReactRefreshWebpackPlugin(),
+    ];
+
+    const plugins: webpack.WebpackPluginInstance[] = [
         new HTMLWebpackPlugin({
             template: paths.html,
         }),
@@ -28,7 +24,12 @@ export function buildPlugins({
         new DefinePlugin({
             __IS_DEV__: JSON.stringify(isDev),
         }), // глобальные переменные доступные в проекте
-        ...devPlugins,
         new BundleAnalyzerPlugin({ openAnalyzer: false }),
     ];
+
+    if (isDev) {
+        plugins.push(...devPlugins);
+    }
+
+    return plugins;
 }
