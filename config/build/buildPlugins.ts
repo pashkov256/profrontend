@@ -1,19 +1,12 @@
-import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
-import HTMLWebpackPlugin from 'html-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import path from 'path';
-import webpack, { DefinePlugin } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { BuildOptions } from './types/config';
 
-export function buildPlugins({ paths, isDev }: BuildOptions): webpack.WebpackPluginInstance[] {
-    const devPlugins : webpack.WebpackPluginInstance[] = [
-        new webpack.HotModuleReplacementPlugin(),
-        new ReactRefreshWebpackPlugin(),
-    ];
-
-    const plugins: webpack.WebpackPluginInstance[] = [
-        new HTMLWebpackPlugin({
+export function buildPlugins({ paths, isDev, apiUrl }: BuildOptions): webpack.WebpackPluginInstance[] {
+    const plugins = [
+        new HtmlWebpackPlugin({
             template: paths.html,
         }),
         new webpack.ProgressPlugin(),
@@ -21,14 +14,17 @@ export function buildPlugins({ paths, isDev }: BuildOptions): webpack.WebpackPlu
             filename: 'css/[name].[contenthash:8].css',
             chunkFilename: 'css/[name].[contenthash:8].css',
         }),
-        new DefinePlugin({
+        new webpack.DefinePlugin({
             __IS_DEV__: JSON.stringify(isDev),
-        }), // глобальные переменные доступные в проекте
-        new BundleAnalyzerPlugin({ openAnalyzer: false }),
+            __API__: JSON.stringify(apiUrl),
+        }),
     ];
 
     if (isDev) {
-        plugins.push(...devPlugins);
+        plugins.push(new webpack.HotModuleReplacementPlugin());
+        plugins.push(new BundleAnalyzerPlugin({
+            openAnalyzer: false,
+        }));
     }
 
     return plugins;

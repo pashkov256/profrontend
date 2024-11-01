@@ -1,21 +1,28 @@
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import webpack from 'webpack';
 import { buildCssLoader } from './loaders/buildCssLoader';
 import { BuildOptions } from './types/config';
 
 export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
-    // если не используем ts то нужен babel-loader
+    const svgLoader = {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+    };
 
     const babelLoader = {
-        test: /\.(js|jsx|tsx )$/,
+        test: /\.(js|jsx|tsx)$/,
         exclude: /node_modules/,
         use: {
             loader: 'babel-loader',
             options: {
                 presets: ['@babel/preset-env'],
                 plugins: [
-                    ['i18next-extract'],
-                    { locales: ['ru', 'en'], keyAsDefaultValue: true },
+                    [
+                        'i18next-extract',
+                        {
+                            locales: ['ru', 'en'],
+                            keyAsDefaultValue: true,
+                        },
+                    ],
                 ],
             },
         },
@@ -23,15 +30,15 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
 
     const cssLoader = buildCssLoader(isDev);
 
+    // Если не используем тайпскрипт - нужен babel-loader
     const typescriptLoader = {
-    // обработка файлов которые выходят за рамки js
-        test: /\.tsx?$/, // файлы ts и tsx
-        use: 'ts-loader', // позволяет работать typescriptyy
-        exclude: /node_modules/, // исключаем эту папку
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
     };
 
     const fileLoader = {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|jpe?g|gif|woff2|woff)$/i,
         use: [
             {
                 loader: 'file-loader',
@@ -39,10 +46,11 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
         ],
     };
 
-    const svgLoader = {
-        test: /\.svg$/,
-        use: ['@svgr/webpack'],
-    }; // ТОЛЬКО SVG
-
-    return [svgLoader, fileLoader, babelLoader, typescriptLoader, cssLoader];
+    return [
+        fileLoader,
+        svgLoader,
+        babelLoader,
+        typescriptLoader,
+        cssLoader,
+    ];
 }

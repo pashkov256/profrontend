@@ -4,8 +4,8 @@ import { BuildOptions } from './types/config';
 export function buildDevServer(options: BuildOptions): DevServerConfiguration {
     return {
         port: options.port,
-        open: true, // открывать в браузере страницу с нашим
-        historyApiFallback: true, // прокисировать забросы через index page | и чтобы не было Cannot GET /kakayto-page
+        open: true,
+        historyApiFallback: true,
         hot: true,
     };
 }
