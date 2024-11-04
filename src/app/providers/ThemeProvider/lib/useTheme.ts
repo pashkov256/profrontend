@@ -15,15 +15,12 @@ export function useTheme(): UseThemeResult {
         case Theme.DARK:
             newTheme = Theme.LIGHT;
             break;
-
         case Theme.LIGHT:
-            newTheme = Theme.BLUE;
+            newTheme = Theme.ORANGE;
             break;
-
-        case Theme.BLUE:
+        case Theme.ORANGE:
             newTheme = Theme.DARK;
             break;
-
         default:
             newTheme = Theme.LIGHT;
         }
