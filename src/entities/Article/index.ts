@@ -1,3 +1,4 @@
 export { ArticleDetalis } from './ui/ArticleDetalis/ArticleDetalis';
-export type { Article } from './model/types/article';
-export { ArticleDetalisSchema } from './model/types/articleDetalisSchema';
+export { Article, ArticleView } from './model/types/article';
+export type { ArticleDetalisSchema } from './model/types/articleDetalisSchema';
+export { ArticleList } from './ui/ArticleList/ArticleList';

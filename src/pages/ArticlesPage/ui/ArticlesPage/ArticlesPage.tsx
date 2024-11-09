@@ -1,6 +1,8 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
+import { Article, ArticleList, ArticleView } from 'entities/Article';
+import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import cls from './ArticlesPage.module.scss';
 
 interface ArticlesPageProps {
@@ -13,7 +15,11 @@ const ArticlesPage = (props: ArticlesPageProps) => {
 
     return (
         <div className={classNames(cls.ArticlesPage, {}, [className])}>
-            ARTICLES PAGE
+
+            <ArticleList
+                view={ArticleView.BIG}
+                articles={[]}
+            />
         </div>
     );
 };
