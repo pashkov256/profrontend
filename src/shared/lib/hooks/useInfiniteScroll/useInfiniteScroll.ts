@@ -33,5 +33,5 @@ export function useInfiniteScroll({ callback, triggerRef, wrapperRef }:UseInfini
                 observer.unobserve(triggerElement);
             }
         };
-    }, [triggerRef, wrapperRef]);
+    }, [callback, triggerRef, wrapperRef]);
 }

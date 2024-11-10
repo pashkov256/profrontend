@@ -8,5 +8,6 @@ export interface ArticlesPageSchema extends EntityState<Article>{
     // pagination
     page:number;
     limit?:number;
+    _inited:boolean;
     hasMore:boolean;
 }
