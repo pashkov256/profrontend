@@ -19,6 +19,7 @@ import {
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { navigate } from '@storybook/addon-links';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import { Page } from 'shared/ui/Page/Page';
 import {
     getArticleCommentsError,
     getArticleCommentsIsLoading,
@@ -55,12 +56,12 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
 
     if (!id) {
         return (
-            <div className={classNames(cls.ArticleDetailsPage, {}, [className])}>{t('Статья не найдена')}</div>
+            <Page className={classNames(cls.ArticleDetailsPage, {}, [className])}>{t('Статья не найдена')}</Page>
         );
     }
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
-            <div className={classNames(cls.ArticleDetailsPage, {}, [className])}>
+            <Page className={classNames(cls.ArticleDetailsPage, {}, [className])}>
                 <Button theme={ButtonTheme.OUTLINE} onClick={onBackToList}>Назад к списку</Button>
                 <ArticleDetalis id={id} />
                 <Text className={cls.commentTitle} title={t('Комментарий')} />
@@ -70,7 +71,7 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
                     className={cls.comment}
                     comments={comments}
                 />
-            </div>
+            </Page>
         </DynamicModuleLoader>
     );
 };
