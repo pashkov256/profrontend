@@ -2,43 +2,45 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getUserAuthData } from 'entities/User';
 import { ThunkConfig } from 'app/providers/StoreProvider';
 import { Comment } from 'entities/Comment';
-import { getArticleDetalisData } from 'entities/Article/model/selectors/articleDetalis';
+import { getArticleDetailsData } from 'entities/Article/model/selectors/articleDetails';
 import {
-    fetchCommentByArticleId,
-} from 'pages/ArticleDetailsPage/model/services/fetchCommentByArticleId/fetchCommentByArticleId';
+    fetchCommentsByArticleId,
+} from '../../services/fetchCommentsByArticleId/fetchCommentsByArticleId';
 
 export const addCommentForArticle = createAsyncThunk<
     Comment,
     string,
     ThunkConfig<string>
->(
-    'articleDetalis/addCommentForArticle',
-    async (text, thunkApi) => {
-        const {
-            extra, dispatch, rejectWithValue, getState,
-        } = thunkApi;
-        const userData = getUserAuthData(getState());
-        const article = getArticleDetalisData(getState());
+    >(
+        'articleDetails/addCommentForArticle',
+        async (text, thunkApi) => {
+            const {
+                extra, dispatch, rejectWithValue, getState,
+            } = thunkApi;
 
-        if (!userData || !text || !article) {
-            return rejectWithValue('no data');
-        }
+            const userData = getUserAuthData(getState());
+            const article = getArticleDetailsData(getState());
 
-        try {
-            const response = await extra.api.post<Comment>('/comments', {
-                articleId: article.id,
-                userId: userData.id,
-                text,
-            });
-
-            if (!response.data) {
-                throw new Error();
+            if (!userData || !text || !article) {
+                return rejectWithValue('no data');
             }
-            dispatch(fetchCommentByArticleId(article.id));
-            return response.data;
-        } catch (e) {
-            console.log(e);
-            return rejectWithValue('error');
-        }
-    },
-);
+
+            try {
+                const response = await extra.api.post<Comment>('/comments', {
+                    articleId: article.id,
+                    userId: userData.id,
+                    text,
+                });
+
+                if (!response.data) {
+                    throw new Error();
+                }
+
+                dispatch(fetchCommentsByArticleId(article.id));
+
+                return response.data;
+            } catch (e) {
+                return rejectWithValue('error');
+            }
+        },
+    );
