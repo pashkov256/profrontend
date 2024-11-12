@@ -1,9 +1,9 @@
-import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
+import { useTranslation } from 'react-i18next';
 import { memo, useCallback } from 'react';
-import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { useSelector } from 'react-redux';
 import { getUserAuthData } from 'entities/User';
 import { getArticleDetailsData } from 'entities/Article/model/selectors/articleDetails';
@@ -18,24 +18,28 @@ export const ArticleDetailsPageHeader = memo((props: ArticleDetailsPageHeaderPro
     const { className } = props;
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const canEdit = useSelector(getCanEditArticle);
     const article = useSelector(getArticleDetailsData);
+
     const onBackToList = useCallback(() => {
         navigate(RoutePath.articles);
     }, [navigate]);
 
     const onEditArticle = useCallback(() => {
-        navigate(`${RoutePath.articles}/${article?.id}/edit`);
+        navigate(`${RoutePath.article_details}${article?.id}/edit`);
     }, [article?.id, navigate]);
 
-    const userData = useSelector(getUserAuthData);
-    const canEdit = useSelector(getCanEditArticle);
     return (
         <div className={classNames(cls.ArticleDetailsPageHeader, {}, [className])}>
             <Button theme={ButtonTheme.OUTLINE} onClick={onBackToList}>
                 {t('Назад к списку')}
             </Button>
             {canEdit && (
-                <Button className={cls.editBtn} theme={ButtonTheme.OUTLINE} onClick={onEditArticle}>
+                <Button
+                    className={cls.editBtn}
+                    theme={ButtonTheme.OUTLINE}
+                    onClick={onEditArticle}
+                >
                     {t('Редактировать')}
                 </Button>
             )}

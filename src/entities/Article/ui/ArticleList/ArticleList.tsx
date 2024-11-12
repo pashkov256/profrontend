@@ -11,9 +11,8 @@ interface ArticleListProps {
     className?: string;
     articles: Article[]
     isLoading?: boolean;
-    view?: ArticleView;
     target?: HTMLAttributeAnchorTarget;
-
+    view?: ArticleView;
 }
 
 const getSkeletons = (view: ArticleView) => new Array(view === ArticleView.SMALL ? 9 : 3)
@@ -27,17 +26,18 @@ export const ArticleList = memo((props: ArticleListProps) => {
         className,
         articles,
         view = ArticleView.SMALL,
-        isLoading, target,
+        isLoading,
+        target,
     } = props;
     const { t } = useTranslation();
 
     const renderArticle = (article: Article) => (
         <ArticleListItem
-            target={target}
             article={article}
             view={view}
             className={cls.card}
             key={article.id}
+            target={target}
         />
     );
 

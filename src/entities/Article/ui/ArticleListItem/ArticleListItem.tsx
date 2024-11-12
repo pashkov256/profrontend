@@ -28,11 +28,6 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
         className, article, view, target,
     } = props;
     const { t } = useTranslation();
-    const navigate = useNavigate();
-
-    // const onOpenArticle = useCallback(() => {
-    //     navigate(RoutePath.article_details + article.id);
-    // }, [article.id, navigate]);
 
     const types = <Text text={article.type.join(', ')} className={cls.types} />;
     const views = (
@@ -62,12 +57,14 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
                         <ArticleTextBlockComponent block={textBlock} className={cls.textBlock} />
                     )}
                     <div className={cls.footer}>
-                        <AppLink target={target} to={RoutePath.article_details + article.id}>
+                        <AppLink
+                            target={target}
+                            to={RoutePath.article_details + article.id}
+                        >
                             <Button theme={ButtonTheme.OUTLINE}>
                                 {t('Читать далее...')}
                             </Button>
                         </AppLink>
-
                         {views}
                     </div>
                 </Card>
@@ -76,7 +73,11 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
     }
 
     return (
-        <AppLink target={target} to={RoutePath.article_details + article.id} className={classNames(cls.ArticleListItem, {}, [className, cls[view]])}>
+        <AppLink
+            target={target}
+            to={RoutePath.article_details + article.id}
+            className={classNames(cls.ArticleListItem, {}, [className, cls[view]])}
+        >
             <Card className={cls.card}>
                 <div className={cls.imageWrapper}>
                     <img alt={article.title} src={article.img} className={cls.img} />
