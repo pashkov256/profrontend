@@ -18,3 +18,16 @@
 .content-page {
     display: flex;
 }
+
+*::-webkit-scrollbar {
+    width: 12px;               /* ширина scrollbar */
+    height: 8px;
+}
+*::-webkit-scrollbar-track {
+    background: var(--card-bg);        /* цвет дорожки */
+}
+*::-webkit-scrollbar-thumb {
+    background-color: var(--inverted-primary-color);
+    border-radius: 20px;
+    border: 2px solid var(--primary-color);
+}
