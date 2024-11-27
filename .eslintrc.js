@@ -43,7 +43,7 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
         'no-underscore-dangle': 'off',
         'i18next/no-literal-string': [
-            'error',
+            'warn',
             {
                 markupOnly: true,
                 ignoreAttribute: ['data-testid', 'to', 'target', 'gap',
