@@ -16,11 +16,6 @@ const MainPage = () => {
     return (
         <Page>
             {t('Главная страница')}
-            <HStack>
-                <div>saf</div>
-                <ListBox />
-                <p>223</p>
-            </HStack>
         </Page>
     );
 };
