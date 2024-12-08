@@ -1,47 +1,51 @@
 import { Menu } from '@headlessui/react';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { Fragment } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { DropdownDirection } from 'shared/types/ui';
-import { AppLink } from 'shared/ui/AppLink/AppLink';
+import { AppLink } from '../AppLink/AppLink';
 import cls from './Dropdown.module.scss';
 
 export interface DropdownItem {
     disabled?: boolean;
-    content?:string;
+    content?: ReactNode;
     onClick?: () => void;
     href?: string;
 }
 
 interface DropdownProps {
     className?: string;
-    trigger: React.ReactNode;
     items: DropdownItem[];
     direction?: DropdownDirection;
+    trigger: ReactNode;
 }
+
+const mapDirectionClass: Record<DropdownDirection, string> = {
+    'bottom left': cls.optionsBottomLeft,
+    'bottom right': cls.optionsBottomRight,
+    'top right': cls.optionsTopRight,
+    'top left': cls.optionsTopLeft,
+};
 
 export function Dropdown(props: DropdownProps) {
     const {
-        className, items, trigger, direction = 'bottom right',
+        className, trigger, items, direction = 'bottom right',
     } = props;
 
-    const mapDirectionClass: Record<DropdownDirection, string> = {
-        'bottom left': cls.optionsBottomLeft,
-        'bottom right': cls.optionsBottomRight,
-        'top left': cls.optionsTopLeft,
-        'top right': cls.optionsTopRight,
-    };
     const menuClasses = [mapDirectionClass[direction]];
+
     return (
-        <Menu as="div" className={classNames(cls.Dropdown, { }, [className])}>
-            <Menu.Button className={cls.btn}>{trigger}</Menu.Button>
+        <Menu as="div" className={classNames(cls.Dropdown, {}, [className])}>
+            <Menu.Button className={cls.btn}>
+                {trigger}
+            </Menu.Button>
             <Menu.Items className={classNames(cls.menu, {}, menuClasses)}>
                 {items.map((item) => {
-                    const content = ({ active }: { active: boolean }) => (
+                    const content = ({ active }: {active: boolean}) => (
                         <button
                             type="button"
-                            onClick={item.onClick}
                             disabled={item.disabled}
-                            className={classNames(cls.item, { [cls.active]: active }, [])}
+                            onClick={item.onClick}
+                            className={classNames(cls.item, { [cls.active]: active })}
                         >
                             {item.content}
                         </button>
